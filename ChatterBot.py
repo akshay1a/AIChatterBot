@@ -1,4 +1,5 @@
 import tkinter as tk
+import webbrowser
 import openai
 import sys
 import os
@@ -6,10 +7,9 @@ import os
 # Command to make an executable file in cmd
 # pyinstaller --name ChatterBot --onefile --windowed --icon=chat.ico ChatterBot.py
 
-# use "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" this as api key for openai.api_key variable!
 
 # from openai import whisper
-openai.api_key = "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"
+openai.api_key = ""
 
 
 def resource_path(relative_path):
@@ -64,8 +64,26 @@ def display_text():
     text_widget.insert("end", output_text)
 
 
+def on_submit():
+    global text_widget
+    value = entry.get()
+    popup.title("API Query!")
+    label = tk.Label(popup, text="Enter your API Key to use ")
+    label.pack(padx=10, pady=10)
+    # Do something with the value
+    popup.destroy()
+    if value != '':
+        openai.api_key = value
+    text_widget.focus_set()
+
+
+def open_link(event):
+    link = "https://platform.openai.com/account/api-keys"
+    webbrowser.open_new_tab(link)
+
+
 root = tk.Tk()
-root.title("CHATTING BOT")
+root.title("CHATTER-BOT")
 root.geometry("1200x700+{}+{}".format(
     int((root.winfo_screenwidth() - 200) / 8),
     int((root.winfo_screenheight() - 200) / 18)
@@ -73,10 +91,26 @@ root.geometry("1200x700+{}+{}".format(
 root.wm_iconbitmap(resource_path("C://Users//Dell//PycharmProjects//app//chat.ico"))
 root.configure(background="#2E67F8")
 
+## Pop-Up window for getting another api Key
+popup = tk.Toplevel(root)
+popup.title("Get Your API Key!")
+popup.geometry("400x200+500+200")
+label = tk.Label(popup, text="Please provide us your API Key to get started with the Chatter-Bot!", pady=20)
+label.pack()
+entry = tk.Entry(popup)
+entry.pack(pady=10)
+submit_button = tk.Button(popup, text="Submit", command=on_submit)
+submit_button.pack()
+link = tk.Label(popup, text="Click here to login to OpenAI to access your own API Key!", foreground="blue",
+                cursor="hand2")
+link.pack(padx=10, pady=10)
+link.bind("<Button-1>", open_link)
+popup.focus_set()
+
 frame = tk.Frame(root, bd=5, bg='#2E67F8')
 frame.pack(fill=tk.BOTH, expand=True, padx=50, pady=(40, 0))
 text_widget = tk.Text(frame, wrap=tk.WORD, relief=tk.FLAT, padx=20, pady=20)
-text_widget.focus_set()
+# text_widget.focus_set()
 text_widget.pack(fill=tk.BOTH, expand=True)
 text_widget.configure(font=("Verdana", 14, 'bold'), height=10)
 
@@ -108,7 +142,7 @@ def changed(event):
         words = len(text_widget.get(1.0, 'end-1c').split())
         characters = len(text_widget.get(1.0, 'end-1c'))
         status_bar.config(text=f'Status:\tCharacters : {characters} Words : {words}')
-        frame1.config(width=260)
+        frame1.config(width=300)
     text_widget.edit_modified(False)
 
 
