@@ -6,6 +6,8 @@ import os
 # Command to make an executable file in cmd
 # pyinstaller --name ChatterBot --onefile --windowed --icon=chat.ico ChatterBot.py
 
+# use "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" this as api key for openai.api_key variable!
+
 # from openai import whisper
 openai.api_key = "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"
 
