@@ -9,7 +9,7 @@ New-gen chatting application powered by ChatGPT "text-davinci-003" Engine!
         without any browser, but just like an extension.
 
 
-** Note:  Please get your API key from [openai](https://platform.openai.com/account/api-keys) and fill it in the application prompt box to get access through your account. Or else you can make changes in the code to embed the API key directly to 'openai.api_key' variable.
+** Note:  Please get your API key from [openai](https://platform.openai.com/account/api-keys) and fill it in the application prompt box to get access through your account. Or else you can make changes in the code to embed the API key directly to 'openai.api_key' variable.**
 
 
 ### Developed with the help of OpenAI and Python Tkinter Library
